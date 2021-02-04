@@ -29,61 +29,70 @@ namespace Workshop2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
 
-            services.AddDbContext<SchoolContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<SchoolContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IStudentRepository, StudentRepository>();
-            services.AddScoped<ILogRepository, LogRepository>();
+            //services.AddScoped<IStudentRepository, StudentRepository>();
+            //services.AddScoped<ILogRepository, LogRepository>();
+            services.AddMvc();
+
+       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {     
-            
-            
+        {
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
-            
 
-            app.UseMiddleware<LogMiddleware>();
-
-            //app.Use(async (context, next) =>
-            //{               
-            //    await next();
-            //});
-
-            //app.Run(async context =>
+            //if (env.IsDevelopment())
             //{
-            //    await context.Response.WriteAsync("Hello from ");
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+
+
+
+            //app.UseMiddleware<LogMiddleware>();
+
+            ////app.Use(async (context, next) =>
+            ////{               
+            ////    await next();
+            ////});
+
+            ////app.Run(async context =>
+            ////{
+            ////    await context.Response.WriteAsync("Hello from ");
+            ////});
+
+
+
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+
+            //app.UseRouting();
+
+            //app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
             //});
-
-
-
-            app.UseHttpsRedirection();
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseMvcWithDefaultRoute();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
         }
     }
 }
